@@ -4,6 +4,8 @@ import { fetchQuizQuestions } from './api';
 
 // Types
 import { QuestionState, Difficulty } from './api';
+// Styles
+import { GlobalStyle } from './App.styles';
 
 export type AnswerObject = {
 	question: string;
@@ -68,32 +70,35 @@ const App = () => {
 	};
 
 	return (
-		<div className="App">
-			<h1>React Quiz</h1>
-			{gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-				<button className="start" onClick={startTrivia}>
-					Start
-				</button>
-			) : null}
+		<>
+			<GlobalStyle />
+			<div className="App">
+				<h1>React Quiz</h1>
+				{gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+					<button className="start" onClick={startTrivia}>
+						Start
+					</button>
+				) : null}
 
-			{!gameOver ? <p className="score">Score: {score}</p> : null}
-			{loading && <p>Loading Questions...</p>}
-			{!loading && !gameOver && (
-				<QuestionCard
-					questionNo={number + 1}
-					totalQuestions={TOTAL_QUESTIONS}
-					question={questions[number].question}
-					answers={questions[number].answers}
-					userAnswer={userAnswers ? userAnswers[number] : undefined}
-					callback={checkAnswer}
-				/>
-			)}
-			{!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
-				<button className="next" onClick={nextQuestion}>
-					Next Question
-				</button>
-			) : null}
-		</div>
+				{!gameOver ? <p className="score">Score: {score}</p> : null}
+				{loading && <p>Loading Questions...</p>}
+				{!loading && !gameOver && (
+					<QuestionCard
+						questionNo={number + 1}
+						totalQuestions={TOTAL_QUESTIONS}
+						question={questions[number].question}
+						answers={questions[number].answers}
+						userAnswer={userAnswers ? userAnswers[number] : undefined}
+						callback={checkAnswer}
+					/>
+				)}
+				{!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
+					<button className="next" onClick={nextQuestion}>
+						Next Question
+					</button>
+				) : null}
+			</div>
+		</>
 	);
 };
 
